@@ -1,0 +1,31 @@
+.conta{
+    width: 90;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 15pc;
+    margin-left: 15pc;
+    margin-top: 25px;
+    margin-bottom:15px;
+    box-shadow:inset 0 -3em 3em rgba(0,0,0,0.1),
+                 0 0  0 2px rgb(255,255,255),
+                 0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+input{
+    width: 100%;
+}
+
+textarea{
+    width: 100%;
+}
+
+.m1{
+    margin-left: 200px;
+    position: center;
+}
+.color{
+    color: white !important;
+}
+.star-margin{
+    margin-left:  190px;
+}
