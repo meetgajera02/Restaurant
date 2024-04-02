@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './Menu.css';
 import '../Header/Header.css';
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import logo from '../Header/images/logo.png';
-import Juice1 from '../images/juice/Juice-1.jpg';
-import Juice2 from '../images/juice/Carrot-Juice.webp';
-import Juice3 from '../images/juice/All.webp';
-import Juice4 from '../images/juice/orange-juice.jpg';
 import Footer from "../footer/footer";
 
 const Juice = () => {
+    const [juices, setJuices] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/juices') // Replace '/api/juices' with the actual endpoint of your API
+            .then(response => response.json())
+            .then(data => setJuices(data))
+            .catch(error => console.error('Error fetching Juices data:', error));
+    }, []);
     return(
         <>
             <header class="top-navbar">
@@ -56,75 +60,19 @@ const Juice = () => {
                 </div>
             </div>
 
-            <table>
-                <tr>
-                    <td>
-                        <div class="con">
-                            <img src={Juice1} height="250px" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">Mango Juice</h3></td>
-                                <h3 class="text-right">₹ 100</h3>
-                            </tr>       
-                            <h4>Testy</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="con">
-                            <img src={Juice2} height="250px" width="100%" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">Carrot Juice</h3></td>
-                                <h3 class="text-right">₹ 50</h3>
-                            </tr>       
-                            <h4>😜😜😜</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="con">
-                            <img src={Juice3} height="250px" width="100%" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">All Juice</h3></td>
-                                <h3 class="text-right">₹ 500</h3>
-                            </tr>       
-                            <h4>So Cool And Very Testy</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+            <div className='container-xxl'>
+                <div className='row'>
+                    {juices.map(juices => (
+                        <div key={juices._id} class="con">
 
-                <tr>
-                    <td>
-                        <div class="con">
-                            <img src={Juice4} height="250px" width="100%" alt=""/>
+                            <img src={juices.image} height="250px" width="100%" alt=""/>
                             <tr>
-                                <td><h3 class="text-left">Orange Juice</h3></td>
-                                <h3 class="text-right">₹ 80</h3>
+                                <td><h3 class="text-left">{juices.name}</h3></td>
+                                <h3 class="text-right">₹ {juices.price}</h3>
                             </tr>       
-                            <h4>😜😜😜</h4>
+                            <h4>{juices.tag}</h4>
                             <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
+                                <button class="btn1" name="cart" type="submit">
                                     <FaShoppingCart />
                                 </button>             
                                 <a href="/Order">            
@@ -132,9 +80,9 @@ const Juice = () => {
                                 </a>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </table>
+                    ))}
+                </div>
+            </div>
 
             <Footer />
         </>

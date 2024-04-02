@@ -4,10 +4,6 @@ import '../Header/Header.css';
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import logo from '../Header/images/logo.png';
-import fast1 from '../images/fastfood/fast1.jpg';
-import fast2 from '../images/fastfood/fast2.jpg';
-import fast3 from '../images/fastfood/fast3.jpg';
-import fast4 from '../images/fastfood/fast4.jpg';
 import Footer from "../footer/footer";
 
 const Burger = () => {
@@ -64,7 +60,7 @@ const Burger = () => {
                 </div>
             </div>
             <div className='container-xxl'>
-    <div className='row'>
+                <div className='row'>
                     {burgers.map(burgers => (
                         <div key={burgers._id} class="con">
 
@@ -83,88 +79,9 @@ const Burger = () => {
                                 </a>
                             </div>
                         </div>
-                        ))}
-                        </div>
-</div>
-            <table>
-                <tr>
-                    <td>
-                        <div class="con">
-                            <img src={fast1} height="250px" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">Beef Burgers</h3></td>
-                                <h3 class="text-right">₹ 180</h3>
-                            </tr>       
-                            <h4>Amezing</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="con">
-                            <img src={fast2} height="250px" width="100%" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">Turkey Burgers</h3></td>
-                                <h3 class="text-right">₹ 150</h3>
-                            </tr>       
-                            <h4>Very Testy</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="con">
-                            <img src={fast3} height="250px" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">Veggie Burgers</h3></td>
-                                <h3 class="text-right">₹ 200</h3>
-                            </tr>       
-                            <h4>So Yammy</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="con">
-                            <img src={fast4} height="250px" alt=""/>
-                            <tr>
-                                <td><h3 class="text-left">Bison Burgers</h3></td>
-                                <h3 class="text-right">₹ 170</h3>
-                            </tr>       
-                            <h4>So Sweet</h4>
-                            <div class="gridbtn">
-                                <button class="btn1" name="cart" type="submit" onclick="window.location.href = '../AddToCart.php?p_id=<?php echo $row['p_id']; ?>' ">
-                                    <FaShoppingCart />
-                                </button>             
-                                <a href="/Order">            
-                                    <button class="btn2" type="submit" name="order">ORDER</button>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    ))}
+                </div>
+            </div>
 
             <Footer />
         </>

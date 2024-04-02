@@ -1,15 +1,21 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './Order.css';
 import '../Header/Header.css';
 import { FaUser } from "react-icons/fa";
 import logo from '../Header/images/logo.png';
-import fast2 from '../images/fastfood/fast2.jpg';
 import Footer from '../footer/footer';
 import { FaStar } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
 
 
 const Order = () => {
+    const location = useLocation();
+    console.log(location.state);
+    const { fastfood } = location.state;
+
+    // Convert the fastfood string back into an object
+    const parsedFastfood = JSON.parse(fastfood);
   return (
     <>
         <header class="top-navbar">
@@ -65,22 +71,22 @@ const Order = () => {
             <div class="f-row">
                 <div>
                     <div>
-                        <img src={fast2} alt='' width={500} className="border-radius: 30px;"/>
+                        <img src={parsedFastfood.image} alt='' width={500} className="border-radius: 30px;"/>
                     </div>
 
                     <br></br>
 
                     <div>
                         <div class="control-group">
-              		        <h1 className="font-size:70px; opacity:0.7" name="pname">PIZAA</h1>                 
+              		        <h1 className="font-size:70px; opacity:0.7" name="pname">{parsedFastfood.name}</h1>                 
                         </div>
 
                         <div class="control-group">
-              	            <h3 className="font-size:30px;opacity:0.5"><i>Amezing</i></h3>  
+              	            <h3 className="font-size:30px;opacity:0.5"><i>{parsedFastfood.tag}</i></h3>  
                         </div>
 
                         <div class="control-group">
-              	            <h3 className="font-size:30px;opacity:0.5"><i>₹ 180</i></h3>
+              	            <h3 className="font-size:30px;opacity:0.5"><i>₹ {parsedFastfood.price}</i></h3>
                         </div>
 
                         <div class="control-group">

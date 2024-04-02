@@ -176,9 +176,7 @@ app.post('/send-feedback', (req, res) => {
     .catch(err => res.status(500).json({ error: 'Failed to send feedback', details: err }));
 });
 
-
-
-
+//---------------------------------------------------------------------------------------------
 
 const pizzaSchema = new mongoose.Schema({
   name: String,
@@ -216,6 +214,7 @@ app.get('/api/pizzas', async (req, res) => {
   }
 });
 
+//-----------------------------------------------------------------------------------------------------------
 
 const fastfoodSchema = new mongoose.Schema({
   name: String,
@@ -253,6 +252,7 @@ app.get('/api/fastfoods', async (req, res) => {
   }
 });
 
+//----------------------------------------------------------------------------------------------------------------------------------------
 
 const burgerSchema = new mongoose.Schema({
   name: String,
@@ -290,6 +290,121 @@ app.get('/api/burgers', async (req, res) => {
   }
 });
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+const disheSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  tag:String,
+  image:String,
+});
+
+// Define model for feedback data
+const Dishe = mongoose.model('Dishe', disheSchema);
+app.post('/api/dishes', async (req, res) => {
+  const { name, price, tag, image } = req.body;
+
+  // Validate input
+  if (!name || !price || !tag || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Create new pizza
+    const newDishe = new Dishe({ name, price, tag, image });
+    await newDishe.save();
+    res.status(201).json(newDishe);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add Dishe', details: error.message });
+  }
+});
+// Route to get all pizza data
+app.get('/api/dishes', async (req, res) => {
+  try {
+    const dishes = await Dishe.find();
+    res.json(dishes);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch Dishe data', details: error.message });
+  }
+});
+
+//-------------------------------------------------------------------------------------------------------------
+
+const juiceSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  tag:String,
+  image:String,
+});
+
+// Define model for feedback data
+const Juice = mongoose.model('Juice', juiceSchema);
+app.post('/api/juices', async (req, res) => {
+  const { name, price, tag, image } = req.body;
+
+  // Validate input
+  if (!name || !price || !tag || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Create new Juice
+    const newJuice = new Juice({ name, price, tag, image });
+    await newJuice.save();
+    res.status(201).json(newJuice);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add Juice', details: error.message });
+  }
+});
+// Route to get all Juice data
+app.get('/api/juices', async (req, res) => {
+  try {
+    const juices = await Juice.find();
+    res.json(juices);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch juice data', details: error.message });
+  }
+});
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+const drinkSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  tag:String,
+  image:String,
+});
+
+// Define model for feedback data
+const Drink = mongoose.model('Drink', drinkSchema);
+app.post('/api/drinks', async (req, res) => {
+  const { name, price, tag, image } = req.body;
+
+  // Validate input
+  if (!name || !price || !tag || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Create new Juice
+    const newDrink = new Drink({ name, price, tag, image });
+    await newDrink.save();
+    res.status(201).json(newDrink);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add Drink', details: error.message });
+  }
+});
+// Route to get all Juice data
+app.get('/api/drinks', async (req, res) => {
+  try {
+    const drinks = await Drink.find();
+    res.json(drinks);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch Drink data', details: error.message });
+  }
+});
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 // Start server
 app.listen(PORT, () => {
