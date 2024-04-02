@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import './Profile.css';
 import Footer from "../footer/footer";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import logo from '../Header/images/logo.png';
 import person from '../images/meet.jpeg';
-import message from 'antd'
 
 const Profile = () => {
     return(

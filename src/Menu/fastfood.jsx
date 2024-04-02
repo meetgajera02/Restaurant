@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './Menu.css';
 import '../Header/Header.css';
 import { FaShoppingCart } from "react-icons/fa";
@@ -15,6 +15,14 @@ import fast8 from '../images/fastfood/fast8.jpg';
 import Footer from "../footer/footer";
 
 const Fastfood = () => {
+    const [fastfoods, setFastfoods] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/fastfoods') // Replace '/api/pizzas' with the actual endpoint of your API
+            .then(response => response.json())
+            .then(data => setFastfoods(data))
+            .catch(error => console.error('Error fetching fastfood data:', error));
+    }, []);
     return(
         <>
             <header class="top-navbar">
@@ -59,6 +67,30 @@ const Fastfood = () => {
                     </div>
                 </div>
             </div>
+
+            <div className='container-xxl'>
+    <div className='row'>
+                    {fastfoods.map(fastfoods => (
+                        <div key={fastfoods._id} class="con">
+
+                            <img src={fastfoods.image} height="250px" width="100%" alt=""/>
+                            <tr>
+                                <td><h3 class="text-left">{fastfoods.name}</h3></td>
+                                <h3 class="text-right">₹ {fastfoods.price}</h3>
+                            </tr>       
+                            <h4>{fastfoods.tag}</h4>
+                            <div class="gridbtn">
+                                <button class="btn1" name="cart" type="submit">
+                                    <FaShoppingCart />
+                                </button>             
+                                <a href="/Order">            
+                                    <button class="btn2" type="submit" name="order">ORDER</button>
+                                </a>
+                            </div>
+                        </div>
+                        ))}
+                        </div>
+</div>
 
             <table>
                 <tr>

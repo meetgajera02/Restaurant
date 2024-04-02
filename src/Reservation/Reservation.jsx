@@ -112,23 +112,23 @@ const Reservation = () => {
                 <form id = "basic-form" action="" method="post" onSubmit={handleSubmit}> 
                     
                     <div  className="wrap-input100 validate-input m-t-50 m-b-35" data-validate = "Enter Name">
-						<input  className="input100" type="text" placeholder=" Name" name="name" value={formData.name} onChange={handleChange} />
+						<input  className="input100" type="text" placeholder=" Name" name="name" value={formData.name} onChange={handleChange} required="required" />
 					</div>
 
                     <div  className="wrap-input100 validate-input m-t-50 m-b-35" data-validate = "Enter Email">
-						<input  className="input100" type="text" placeholder=" Email" name="email" value={formData.email} onChange={handleChange} />
+						<input  className="input100" type="text" placeholder=" Email" name="email" value={formData.email} onChange={handleChange} required="required" />
 					</div>
 
                     <tabel>
                         <tr>
                             <td>
                                 <div  className="wrap-input10 validate-input m-t-50 m-b-35" data-validate = "Enter mobile">
-						            <input  className="input10" type="text" placeholder=" Mobile" name="mobile" value={formData.mobile}  onChange={handleChange}/>
+						            <input  className="input10" type="text" placeholder=" Mobile" name="mobile" value={formData.mobile}  onChange={handleChange} required="required"/>
 					            </div>
                             </td>
                             <td>
                                 <div  className="wrap-input10 validate-input m-t-50 m-b-35" data-validate = "Enter person">
-						            <input  className="input10" type="number" placeholder=" How Many Person" name="person" min="1" value={formData.person} onChange={handleChange} />
+						            <input  className="input10" type="number" placeholder=" How Many Person" name="person" min="1" value={formData.person} onChange={handleChange} required="required"/>
 					            </div>
                             </td>
                         </tr>
@@ -136,12 +136,12 @@ const Reservation = () => {
                         <tr>
                             <td>
                                 <div  className="wrap-input10 validate-input m-t-50 m-b-35" data-validate = "Enter Date">
-						            <input  className="input10" type="date" id="date" placeholder=" Date" name="date" value={formData.date} onChange={handleChange}  />
+						            <input  className="input10" type="date" id="date" placeholder=" Date" name="date" value={formData.date} onChange={handleChange} required="required" />
 					            </div>
                             </td>
                             <td>
                                 <div  className="wrap-input10 validate-input m-t-50 m-b-35" data-validate = "Enter Time">
-						            <input  className="input10" type="time" placeholder=" Time" name="time" value={formData.time} onChange={handleChange}  />
+						            <input  className="input10" type="time" placeholder=" Time" name="time" value={formData.time} onChange={handleChange} required="required" />
 					            </div>
                             </td>
                         </tr>

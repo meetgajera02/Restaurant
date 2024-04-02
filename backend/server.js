@@ -177,6 +177,120 @@ app.post('/send-feedback', (req, res) => {
 });
 
 
+
+
+
+const pizzaSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  tag:String,
+  image:String,
+});
+
+// Define model for feedback data
+const Pizza = mongoose.model('Pizza', pizzaSchema);
+app.post('/api/pizzas', async (req, res) => {
+  const { name, price, tag, image } = req.body;
+
+  // Validate input
+  if (!name || !price || !tag || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Create new pizza
+    const newPizza = new Pizza({ name, price, tag, image });
+    await newPizza.save();
+    res.status(201).json(newPizza);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add pizza', details: error.message });
+  }
+});
+// Route to get all pizza data
+app.get('/api/pizzas', async (req, res) => {
+  try {
+    const pizzas = await Pizza.find();
+    res.json(pizzas);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch pizza data', details: error.message });
+  }
+});
+
+
+const fastfoodSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  tag:String,
+  image:String,
+});
+
+// Define model for feedback data
+const Fastfood = mongoose.model('Fastfood', fastfoodSchema);
+app.post('/api/fastfoods', async (req, res) => {
+  const { name, price, tag, image } = req.body;
+
+  // Validate input
+  if (!name || !price || !tag || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Create new pizza
+    const newFastfood = new Fastfood({ name, price, tag, image });
+    await newFastfood.save();
+    res.status(201).json(newFastfood);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add Fastfood', details: error.message });
+  }
+});
+// Route to get all pizza data
+app.get('/api/fastfoods', async (req, res) => {
+  try {
+    const fastfoods = await Fastfood.find();
+    res.json(fastfoods);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch pizza data', details: error.message });
+  }
+});
+
+
+const burgerSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  tag:String,
+  image:String,
+});
+
+// Define model for feedback data
+const Burger = mongoose.model('Burger', burgerSchema);
+app.post('/api/burgers', async (req, res) => {
+  const { name, price, tag, image } = req.body;
+
+  // Validate input
+  if (!name || !price || !tag || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    // Create new pizza
+    const newBurger = new Burger({ name, price, tag, image });
+    await newBurger.save();
+    res.status(201).json(newBurger);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add pizza', details: error.message });
+  }
+});
+// Route to get all pizza data
+app.get('/api/burgers', async (req, res) => {
+  try {
+    const burgers = await Burger.find();
+    res.json(burgers);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch pizza data', details: error.message });
+  }
+});
+
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

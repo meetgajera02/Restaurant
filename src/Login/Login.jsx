@@ -52,12 +52,12 @@ const Login = () => {
                             </span>
 
                             <div className="wrap-input100 validate-input m-t-50 m-b-35" data-validate="Enter Email">
-                                <input className="input100 input1" type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <input className="input100 input1" type="text" name="email" placeholder=" Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                 <span className="focus-input100" data-placeholder="Email"></span>
                             </div>
 
                             <div className="wrap-input100 validate-input m-b-50" data-validate="Enter password">
-                                <input className="input100 input1" type="password" name="pass" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                                <input className="input100 input1" type="password" name="pass" placeholder=" password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                                 <span className="focus-input100" data-placeholder="Password"></span>
                             </div>
 

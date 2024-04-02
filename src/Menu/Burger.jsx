@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './Menu.css';
 import '../Header/Header.css';
 import { FaShoppingCart } from "react-icons/fa";
@@ -11,6 +11,14 @@ import fast4 from '../images/fastfood/fast4.jpg';
 import Footer from "../footer/footer";
 
 const Burger = () => {
+    const [burgers, setBurgers] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/burgers') // Replace '/api/pizzas' with the actual endpoint of your API
+            .then(response => response.json())
+            .then(data => setBurgers(data))
+            .catch(error => console.error('Error fetching pizza data:', error));
+    }, []);
     return(
         <>
             <header class="top-navbar">
@@ -55,7 +63,29 @@ const Burger = () => {
                     </div>
                 </div>
             </div>
+            <div className='container-xxl'>
+    <div className='row'>
+                    {burgers.map(burgers => (
+                        <div key={burgers._id} class="con">
 
+                            <img src={burgers.image} height="250px" width="100%" alt=""/>
+                            <tr>
+                                <td><h3 class="text-left">{burgers.name}</h3></td>
+                                <h3 class="text-right">₹ {burgers.price}</h3>
+                            </tr>       
+                            <h4>{burgers.tag}</h4>
+                            <div class="gridbtn">
+                                <button class="btn1" name="cart" type="submit">
+                                    <FaShoppingCart />
+                                </button>             
+                                <a href="/Order">            
+                                    <button class="btn2" type="submit" name="order">ORDER</button>
+                                </a>
+                            </div>
+                        </div>
+                        ))}
+                        </div>
+</div>
             <table>
                 <tr>
                     <td>
