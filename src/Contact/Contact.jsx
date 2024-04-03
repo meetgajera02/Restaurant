@@ -106,7 +106,7 @@ const Contact = () => {
                     <table>
                         <tr>
                             <div  className="col-12">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.487727678968!2d70.89827970000001!3d22.240303199999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959b4a660019ee9%3A0x3d6254f36ed0e794!2sRK%20University%20Main%20Campus!5e0!3m2!1sen!2sin!4v1705764825923!5m2!1sen!2sin" height={400} width={500}  className="contact-map" allowfullscreen="" loading="lazy" title="iframe" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7252.3518179048015!2d70.9802598836549!3d22.137870981570863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39584f264395b7f9%3A0x630a6882b43f93f8!2sShree%20Swaminarayan%20Mandir%20-%20Sardhardham!5e0!3m2!1sen!2sin!4v1712171783215!5m2!1sen!2sin" height={400} width={500}  className="contact-map" allowfullscreen="" loading="lazy" title="iframe" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
 
                             <td>
