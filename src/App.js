@@ -57,7 +57,7 @@ function App() {
           <Route path="/Reservation" element={<Reservation/>} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Feedback" element={<Feedback/>} />
-          <Route path="/Order" element={<Order/>} />
+          <Route path="/Order/:id" element={<Order/>} />
           <Route path="/Profile" element={<Profile/>} />
           <Route path="/Edit_profile" element={<Edit/>} />
 				</Routes>

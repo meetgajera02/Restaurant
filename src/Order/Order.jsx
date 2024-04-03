@@ -1,21 +1,80 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import './Order.css';
 import '../Header/Header.css';
 import { FaUser } from "react-icons/fa";
 import logo from '../Header/images/logo.png';
 import Footer from '../footer/footer';
-import { FaStar } from "react-icons/fa6";
-import { CiStar } from "react-icons/ci";
 
+import { message } from "antd";
+import { useParams } from 'react-router-dom';
 
 const Order = () => {
-    const location = useLocation();
-    console.log(location.state);
-    const { fastfood } = location.state;
+    const { id } = useParams();
+    console.log(id);
+    const [pizza, setPizza] = useState(null);
+    console.log(pizza);
+    useEffect(() => {
+        async function fetchPizza() {
+          try {
+            const response = await fetch(`http://localhost:5000/api/pizza/${id}`);
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data);
+            setPizza(data.pizza);
+          } catch (error) {
+            console.error('Error fetching pizza:', error);
+          }
+        }
+        fetchPizza();
+      }, [id]);
 
-    // Convert the fastfood string back into an object
-    const parsedFastfood = JSON.parse(fastfood);
+    const [formData, setFormData] = useState({
+        name: "",
+        city: "",
+        state: "",
+        pincode: "",
+        address: "",
+        quantity: 1
+    });
+    const [error, setError] = useState('');
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:5000/send-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                console.log(data.message);
+                message.success("Form Submit Successfully")
+                // Clear form data after successful submission
+                setFormData({
+                    name: "",
+                    city: "",
+                    state: "",
+                    pincode: "",
+                    address: "",
+                    quantity: 1
+                });
+            } else {
+                setError(data.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setError('An error occurred, please try again later');
+        }
+    };
   return (
     <>
         <header class="top-navbar">
@@ -71,81 +130,72 @@ const Order = () => {
             <div class="f-row">
                 <div>
                     <div>
-                        <img src={parsedFastfood.image} alt='' width={500} className="border-radius: 30px;"/>
+                        <img src={pizza?.image} alt='' width={500} className="border-radius: 30px;"/>
                     </div>
 
                     <br></br>
 
                     <div>
-                        <div class="control-group">
-              		        <h1 className="font-size:70px; opacity:0.7" name="pname">{parsedFastfood.name}</h1>                 
-                        </div>
 
-                        <div class="control-group">
-              	            <h3 className="font-size:30px;opacity:0.5"><i>{parsedFastfood.tag}</i></h3>  
-                        </div>
-
-                        <div class="control-group">
-              	            <h3 className="font-size:30px;opacity:0.5"><i>₹ {parsedFastfood.price}</i></h3>
-                        </div>
-
-                        <div class="control-group">
-                            <FaStar color='#d65106'/>
-                            <FaStar color='#d65106'/>
-                            <FaStar color='#d65106'/>
-                            <FaStar color='#d65106'/>
-					    	<CiStar color='#d65106'/>
-                            <p class="help-block text-danger"></p>
-                        </div>
+                        <tr>
+                                <td><h3 class="text-left">{pizza?.name}</h3></td>
+                                <h3 class="text-right">₹ {pizza?.price}</h3>
+                        </tr>    
+                        <br></br>   
+                        <h4>{pizza?.tag}</h4>
+                        
                     </div>
                 </div>
 
                 <div>
+                    {error && <div className="error">{error}</div>}
+                    <form onSubmit={handleSubmit}>
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">Name:</label>
-                            <input type="text" class="form-control2" name="user_name" placeholder="Enter Name"  required/>
+                            <input type="text" class="form-control2" name="name" placeholder="Enter Name" value={formData.name} onChange={handleChange} required/>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">City:</label>
-                            <input type="text" class="form-control2" name="city" placeholder="Enter City"  required/>
+                            <input type="text" class="form-control2" name="city" placeholder="Enter City" value={formData.city} onChange={handleChange} required/>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">State:</label>
-                            <input type="text" class="form-control2" name="state" placeholder="Enter State"  required/>
+                            <input type="text" class="form-control2" name="state" placeholder="Enter State" value={formData.state} onChange={handleChange} required/>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">Pincode:</label>
-                            <input type="text" class="form-control2" name="pincode" placeholder="Enter Pincode"  required/>
+                            <input type="text" class="form-control2" name="pincode" placeholder="Enter Pincode" value={formData.pincode} onChange={handleChange} required/>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">Address:</label>
-                            <textarea type="text" class="form-control2" name="pincode" placeholder="Enter Address"  required/>
+                            <textarea type="text" class="form-control2" name="address" placeholder="Enter Address" value={formData.address} onChange={handleChange} required/>
                         </div>
                     </div>
 
                     <br></br>
                     <div class="control-group">
                         <label class="labels">Quantity:</label>
-                        <input type="number" class="Quantity" min="1" required="required" name="quantity" />
+                        <input type="number" class="Quantity" min="1" required="required" onChange={handleChange} value={formData.quantity} name="quantity" />
                     </div>
 
                     <br></br>
                     <div>
                         <button class="btn2" type="submit" name="order">ORDER</button>
-					</div>									
+					</div>	
+                    </form>								
                 </div>
                 
                 <div>

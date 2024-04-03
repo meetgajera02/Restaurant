@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const cors = require('cors');
@@ -89,6 +89,23 @@ app.post('/login', (req, res) => {
     .catch(err => res.status(500).json({ error: 'Server error', details: err }));
 });
 
+// Define route for user login
+app.get('/getusers',async (req, res) => {
+
+
+ try {
+  const users = await User.find()
+  console.log(users);   
+  res.status(200).json({users})
+ } catch (error) {
+  res.status(500).json({error})
+ }
+ 
+});
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // Define schema for booking data
 const bookingSchema = new mongoose.Schema({
   name: String,
@@ -120,6 +137,8 @@ app.post('/book-table', (req, res) => {
     .catch(err => res.status(500).json({ error: 'Failed to book table', details: err }));
 });
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
 // Define schema for message data
 const messageSchema = new mongoose.Schema({
   name: String,
@@ -146,6 +165,8 @@ app.post('/send-message', (req, res) => {
     .then(() => res.json({ message: 'Message sent successfully' }))
     .catch(err => res.status(500).json({ error: 'Failed to send message', details: err }));
 });
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
 
 // Define schema for feedback data
 const feedbackSchema = new mongoose.Schema({
@@ -176,7 +197,38 @@ app.post('/send-feedback', (req, res) => {
     .catch(err => res.status(500).json({ error: 'Failed to send feedback', details: err }));
 });
 
-//---------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+// Define schema for message data
+const orderSchema = new mongoose.Schema({
+  name: String,
+  city: String,
+  state: String,
+  pincode: Number,
+  address: String,
+  quantity: Number,
+});
+
+// Define model for message data
+const Order = mongoose.model('Order', orderSchema);
+
+// Define route to handle form submission
+app.post('/send-order', (req, res) => {
+  const { name, city, state, pincode , address , quantity } = req.body;
+
+  // Validate input
+  if (!name || !city || !state || !pincode || !address || !quantity) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  // Create new message
+  const newOrder = new Order({ name, city, state, pincode , address , quantity });
+  newOrder.save()
+    .then(() => res.json({ message: 'Order sent successfully' }))
+    .catch(err => res.status(500).json({ error: 'Failed to send message', details: err }));
+});
+
+//----------------------------------------------------------------------------------------------------------------------------------------------
 
 const pizzaSchema = new mongoose.Schema({
   name: String,
@@ -214,7 +266,21 @@ app.get('/api/pizzas', async (req, res) => {
   }
 });
 
-//-----------------------------------------------------------------------------------------------------------
+app.get("/api/pizza/:id", async (req, res) => {
+  try {
+    const pizza = await Pizza.findById(req.params.id);
+    if (!pizza) {
+      return res.status(404).json({ error: 'Pizza not found' });
+    }
+    console.log(pizza);
+    res.status(200).json({ pizza });
+  } catch (error) {
+    console.error('Error fetching pizza:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
 
 const fastfoodSchema = new mongoose.Schema({
   name: String,
@@ -328,7 +394,7 @@ app.get('/api/dishes', async (req, res) => {
   }
 });
 
-//-------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------
 
 const juiceSchema = new mongoose.Schema({
   name: String,
@@ -405,6 +471,36 @@ app.get('/api/drinks', async (req, res) => {
 });
 
 //---------------------------------------------------------------------------------------------------------------------------------------
+
+
+const imageSchema = new mongoose.Schema({
+  name: String,
+  data: Buffer,
+  contentType: String
+});
+
+const Image = mongoose.model('Image', imageSchema);
+
+// Set up multer storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Endpoint for uploading image
+app.post('/upload', upload.single('image'), async (req, res) => {
+  try {
+    const newImage = new Image({
+      name: req.file.originalname,
+      data: req.file.buffer,
+      contentType: req.file.mimetype
+    });
+    await newImage.save();
+    res.json({ message: 'Image uploaded successfully' });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 // Start server
 app.listen(PORT, () => {
