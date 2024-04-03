@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import './Menu.css';
 import '../Header/Header.css';
 import { FaShoppingCart } from "react-icons/fa";
@@ -9,30 +8,7 @@ import Footer from "../footer/footer";
 
 const Fastfood = () => {
     const [fastfoods, setFastfoods] = useState([]);
-    const navigate = useNavigate();
-    const handleOrderClick = (fastfood) => {
-        // Convert the fastfood object to a JSON string
-        const replacer = (key, value) => {
-            if (typeof value === 'object' && value !== null) {
-                // Check if value is already in the visited set
-                if (cache.has(value)) {
-                    return '[Circular]';
-                }
-                // Add value to set
-                cache.add(value);
-            }
-            return value;
-        };
-
-        // Cache to track visited objects
-        const cache = new WeakSet();
-
-        // Convert the fastfood object to a JSON string
-        const fastfoodString = JSON.stringify(fastfood, replacer);
-        // Navigate to the order page with the selected fastfood details as URL parameters
-        navigate(`/Order`, { state: { fastfood: fastfoodString } });
-    };
-
+    
     useEffect(() => {
         fetch('http://localhost:5000/api/fastfoods') // Replace '/api/pizzas' with the actual endpoint of your API
             .then(response => response.json())
@@ -99,7 +75,10 @@ const Fastfood = () => {
                                 <button class="btn1" name="cart" type="submit">
                                     <FaShoppingCart />
                                 </button> 
-                                    <button class="btn2" onClick={handleOrderClick}  type="submit" name="order">ORDER</button>
+                                <a 
+                                href={`/fastfood_Orders/${fastfoods._id}`}>            
+                                    <button class="btn2" type="submit" name="order">ORDER</button>
+                                </a>
                             </div>
                         </div>
                     ))}

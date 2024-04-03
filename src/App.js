@@ -33,9 +33,14 @@ import About from "./About/About";
 import Reservation from "./Reservation/Reservation";
 import Feedback from "./Feedback/Feedback";
 import Order from "./Order/Order";
+import Burgers from "./Order/Burder_order";
+import Di from "./Order/Dishe_order";
 import Profile from "./Profile/Profile";
 import Edit from "./Profile/edit_profile";
 import Registration from "./Login/Registration";
+import Jui from "./Order/Juice_order";
+import Fast from "./Order/fastfood_order";
+import Dri from "./Order/Drink_order";
 
 function App() {
 	return (
@@ -57,7 +62,12 @@ function App() {
           <Route path="/Reservation" element={<Reservation/>} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Feedback" element={<Feedback/>} />
-          <Route path="/Order/:id" element={<Order/>} />
+          <Route path="/Pizza_Orders/:id" element={<Order/>} />
+          <Route path="/Burger_Orders/:id" element={<Burgers/>} />
+          <Route path="/Dishe_Orders/:id" element={<Di/>} />
+          <Route path="/Juice_Orders/:id" element={<Jui/>} />
+          <Route path="/fastfood_Orders/:id" element={<Fast/>} />
+          <Route path="/Drink_Orders/:id" element={<Dri/>} />
           <Route path="/Profile" element={<Profile/>} />
           <Route path="/Edit_profile" element={<Edit/>} />
 				</Routes>

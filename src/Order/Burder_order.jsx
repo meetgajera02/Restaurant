@@ -7,26 +7,26 @@ import Footer from '../footer/footer';
 import { message } from "antd";
 import { useParams } from 'react-router-dom';
 
-const Order = () => {
+const Burgers = () => {
     const { id } = useParams();
     console.log(id);
-    const [pizza, setPizza] = useState(null);
-    console.log(pizza);
+    const [burger, setBurger] = useState(null);
+    console.log(burger);
     useEffect(() => {
-        async function fetchPizza() {
+        async function fetchBurger() {
           try {
-            const response = await fetch(`http://localhost:5000/api/pizza/${id}`);
+            const response = await fetch(`http://localhost:5000/api/burger/${id}`);
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
             const data = await response.json();
             console.log(data);
-            setPizza(data.pizza);
+            setBurger(data.burger);
           } catch (error) {
-            console.error('Error fetching pizza:', error);
+            console.error('Error fetching burger:', error);
           }
         }
-        fetchPizza();
+        fetchBurger();
       }, [id]);
 
     const [formData, setFormData] = useState({
@@ -129,7 +129,7 @@ const Order = () => {
             <div class="f-row">
                 <div>
                     <div>
-                        <img src={pizza?.image} alt='' width={500} className="border-radius: 30px;"/>
+                        <img src={burger?.image} alt='' width={500} className="border-radius: 30px;"/>
                     </div>
 
                     <br></br>
@@ -137,11 +137,11 @@ const Order = () => {
                     <div>
 
                         <tr>
-                                <td><h3 class="text-left">{pizza?.name}</h3></td>
-                                <h3 class="text-right">₹ {pizza?.price}</h3>
+                                <td><h3 class="text-left">{burger?.name}</h3></td>
+                                <h3 class="text-right">₹ {burger?.price}</h3>
                         </tr>    
                         <br></br>   
-                        <h4>{pizza?.tag}</h4>
+                        <h4>{burger?.tag}</h4>
                         
                     </div>
                 </div>
@@ -208,4 +208,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Burgers;

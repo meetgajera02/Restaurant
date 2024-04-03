@@ -10,7 +10,7 @@ const Burger = () => {
     const [burgers, setBurgers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/burgers') // Replace '/api/pizzas' with the actual endpoint of your API
+        fetch('http://localhost:5000/api/burgers')
             .then(response => response.json())
             .then(data => setBurgers(data))
             .catch(error => console.error('Error fetching pizza data:', error));
@@ -74,7 +74,8 @@ const Burger = () => {
                                 <button class="btn1" name="cart" type="submit">
                                     <FaShoppingCart />
                                 </button>             
-                                <a href="/Order">            
+                                <a 
+                                href={`/Burger_Orders/${burgers._id}`}>            
                                     <button class="btn2" type="submit" name="order">ORDER</button>
                                 </a>
                             </div>

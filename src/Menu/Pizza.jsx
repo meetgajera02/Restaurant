@@ -76,7 +76,7 @@ const Pizza = () => {
                                     <FaShoppingCart />
                                 </button>             
                                 <a 
-                                href={`/Order/${pizza._id}`}>            
+                                href={`/Pizza_Orders/${pizza._id}`}>            
                                     <button class="btn2" type="submit" name="order">ORDER</button>
                                 </a>
                             </div>

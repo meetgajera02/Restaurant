@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const multer = require('multer');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const cors = require('cors');
@@ -318,6 +318,20 @@ app.get('/api/fastfoods', async (req, res) => {
   }
 });
 
+app.get("/api/fastfood/:id", async (req, res) => {
+  try {
+    const fastfood = await Fastfood.findById(req.params.id);
+    if (!fastfood) {
+      return res.status(404).json({ error: 'fastfood not found' });
+    }
+    console.log(fastfood);
+    res.status(200).json({ fastfood });
+  } catch (error) {
+    console.error('Error fetching fastfood:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 const burgerSchema = new mongoose.Schema({
@@ -353,6 +367,20 @@ app.get('/api/burgers', async (req, res) => {
     res.json(burgers);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch pizza data', details: error.message });
+  }
+});
+
+app.get("/api/burger/:id", async (req, res) => {
+  try {
+    const burger = await Burger.findById(req.params.id);
+    if (!burger) {
+      return res.status(404).json({ error: 'Burger not found' });
+    }
+    console.log(burger);
+    res.status(200).json({ burger });
+  } catch (error) {
+    console.error('Error fetching Burger:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -394,6 +422,20 @@ app.get('/api/dishes', async (req, res) => {
   }
 });
 
+app.get("/api/dishe/:id", async (req, res) => {
+  try {
+    const dishe = await Dishe.findById(req.params.id);
+    if (!dishe) {
+      return res.status(404).json({ error: 'Dishe not found' });
+    }
+    console.log(dishe);
+    res.status(200).json({ dishe });
+  } catch (error) {
+    console.error('Error fetching Dishe:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
 const juiceSchema = new mongoose.Schema({
@@ -429,6 +471,20 @@ app.get('/api/juices', async (req, res) => {
     res.json(juices);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch juice data', details: error.message });
+  }
+});
+
+app.get("/api/juice/:id", async (req, res) => {
+  try {
+    const juice = await Juice.findById(req.params.id);
+    if (!juice) {
+      return res.status(404).json({ error: 'Juice not found' });
+    }
+    console.log(juice);
+    res.status(200).json({ juice });
+  } catch (error) {
+    console.error('Error fetching Juice:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -470,37 +526,21 @@ app.get('/api/drinks', async (req, res) => {
   }
 });
 
-//---------------------------------------------------------------------------------------------------------------------------------------
-
-
-const imageSchema = new mongoose.Schema({
-  name: String,
-  data: Buffer,
-  contentType: String
-});
-
-const Image = mongoose.model('Image', imageSchema);
-
-// Set up multer storage
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-// Endpoint for uploading image
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.get("/api/drink/:id", async (req, res) => {
   try {
-    const newImage = new Image({
-      name: req.file.originalname,
-      data: req.file.buffer,
-      contentType: req.file.mimetype
-    });
-    await newImage.save();
-    res.json({ message: 'Image uploaded successfully' });
+    const drink = await Drink.findById(req.params.id);
+    if (!drink) {
+      return res.status(404).json({ error: 'Drink not found' });
+    }
+    console.log(drink);
+    res.status(200).json({ drink });
   } catch (error) {
-    console.error('Error uploading image:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error fetching Drink:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 // Start server
 app.listen(PORT, () => {

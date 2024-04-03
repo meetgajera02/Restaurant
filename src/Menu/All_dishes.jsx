@@ -75,7 +75,8 @@ const Dishes = () => {
                                 <button class="btn1" name="cart" type="submit">
                                     <FaShoppingCart />
                                 </button>             
-                                <a href="/Order">            
+                                <a 
+                                href={`/Dishe_Orders/${dishes._id}`}>            
                                     <button class="btn2" type="submit" name="order">ORDER</button>
                                 </a>
                             </div>
