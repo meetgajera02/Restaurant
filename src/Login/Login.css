@@ -247,25 +247,7 @@
     background: #d65106;;
   }
   
-  .focus-input100::after {
-    font-family: Poppins-Medium;
-    font-size: 18px;
-    color: #999999;
-    line-height: 1.2;
   
-    content: attr(data-placeholder);
-    display: block;
-    width: 100%;
-    position: absolute;
-    top: 15px;
-    left: 0px;
-    padding-left: 5px;
-  
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-  }
   
   .input100:focus + .focus-input100::after {
     top: -20px;

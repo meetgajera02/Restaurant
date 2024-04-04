@@ -57,31 +57,42 @@ const Registration = () => {
     	                        <img src={logo} alt=""/>
 						    </span>
                             <div className="wrap-input100 validate-input m-t-50 m-b-35" data-validate = "Enter username">
-							    <input className="input100 input1" type="text" name="name" value={user.name} onChange={ handleChange }/>
+							    <input className="input100 input1" type="text" name="name" placeholder=" Name" value={user.name} onChange={ handleChange }/>
 							    <span className="focus-input100" data-placeholder="Name"></span>
 						    </div>
                             <div className="wrap-input100 validate-input m-t-50 m-b-35" data-validate = "Enter Email">
-							    <input className="input100 input1" type="text" name="email" value={user.email} onChange={ handleChange }/>
+							    <input className="input100 input1" type="text" name="email" placeholder=" Email" value={user.email} onChange={ handleChange }/>
 							    <span className="focus-input100" data-placeholder="Email"></span>
 						    </div>
                             <div className="wrap-input100 validate-input m-t-50 m-b-35" data-validate = "Enter Mobile Number">
-							    <input className="input100 input1" type="text" name="mobile" value={user.mobile} onChange={ handleChange }/>
+							    <input className="input100 input1" type="text" name="mobile" placeholder=" Mobile Number" value={user.mobile} onChange={ handleChange }/>
 							    <span className="focus-input100" data-placeholder="Mobile Number"></span>
 						    </div>
 
 	                        <div className="wrap-input100 validate-input m-b-50" data-validate="Enter password">
-							    <input className="input100 input1" type="password" name="password" value={user.password} onChange={ handleChange }/>
+							    <input className="input100 input1" type="password" name="password" placeholder=" Password" value={user.password} onChange={ handleChange }/>
 						    	<span className="focus-input100" data-placeholder="Password"></span>
 						    </div>
                                     
                 	        <div className="wrap-input100 validate-input m-b-50" data-validate="Enter password">
-						    	<input className="input100 input1" type="password" name="reEnterPassword" value={user.reEnterPassword}  onChange={ handleChange }/>
+						    	<input className="input100 input1" type="password" name="reEnterPassword" placeholder=" Re-password" value={user.reEnterPassword}  onChange={ handleChange }/>
 					    		<span className="focus-input100" data-placeholder="Conform Password"></span>
 					    	</div>
                             <div className="container-login100-form-btn5">
 							    <div className="login100-form-btn5 input1" type="submit"onClick={register} value="Login" name="login">Registration</div>
 						    </div>
                             <br></br>
+
+                            <ul className="login-more p-t-190">
+                                <li>
+                                    <span className="txt1">
+                                        Don’t have an account? 
+                                    </span>
+                                    <a href="/" rel="" className="txt2">
+                                        Sign in
+                                    </a>
+                                </li>
+                            </ul>   
                             {/* Additional UI elements */}
                         </form>
                     </div>
